@@ -35,8 +35,8 @@ jobs:
       - name: Run Lint
         run: npm run lint
 
-      - name: Run Prettier
-        run: npx prettier --check .
+      - name: Run Prettier (with auto-fix)
+        run: npx prettier --write .
 
       - name: Run tests with coverage
         run: npm run test -- --coverage --watchAll=false
