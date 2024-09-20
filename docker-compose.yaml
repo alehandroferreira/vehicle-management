@@ -11,7 +11,8 @@ services:
       - db
     volumes:
       - .:/usr/src/app
-    command: npm run start:prod
+    entrypoint: ['./entrypoint.sh']
+    command: ['npm', 'run', 'start:dev']
 
   db:
     image: postgres:15-alpine

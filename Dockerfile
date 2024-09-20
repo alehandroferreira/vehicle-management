@@ -13,11 +13,9 @@ RUN npm install
 # Copiar o restante dos arquivos da aplicação
 COPY . .
 
-# Gerar os arquivos do Prisma
-RUN npx prisma generate
-
-# Compilar o TypeScript para JavaScript
-RUN npm run build
+# Copia o script de inicialização
+COPY entrypoint.sh ./
+RUN chmod +x entrypoint.sh
 
 # Expor a porta que a aplicação vai rodar
 EXPOSE 3000
