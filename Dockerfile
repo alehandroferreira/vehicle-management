@@ -1,5 +1,5 @@
 # Usar a imagem oficial do Node.js com versão LTS e Alpine
-FROM node:22.1.0-alpine
+FROM node:20.17.0-alpine
 
 # Diretório de trabalho dentro do container
 WORKDIR /usr/src/app
