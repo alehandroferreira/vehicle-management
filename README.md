@@ -68,3 +68,9 @@ Antes de começar, você precisa ter os seguintes itens instalados em seu ambien
    ```
 
 9. **Seguir as orientações dos modelos e exemplos que estão disponibilizados no swagger.**
+
+10. **Acessar a rota do swagger:**
+
+    ```bash
+    npm run test
+    ```
