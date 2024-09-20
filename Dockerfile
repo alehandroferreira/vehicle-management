@@ -1,5 +1,5 @@
 # Usar a imagem oficial do Node.js com versão LTS e Alpine
-FROM node:18-alpine
+FROM node:22.1.0-alpine
 
 # Diretório de trabalho dentro do container
 WORKDIR /usr/src/app
@@ -13,12 +13,8 @@ RUN npm install
 # Copiar o restante dos arquivos da aplicação
 COPY . .
 
-# Copia o script de inicialização
-COPY entrypoint.sh ./
-RUN chmod +x entrypoint.sh
-
 # Expor a porta que a aplicação vai rodar
 EXPOSE 3000
 
 # Comando para iniciar a aplicação
-CMD ["npm", "run", "start:dev"]
+CMD npx prisma migrate dev --name migration && npm run start:dev

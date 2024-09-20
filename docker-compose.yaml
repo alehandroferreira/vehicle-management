@@ -5,26 +5,32 @@ services:
       dockerfile: Dockerfile
     ports:
       - '3000:3000'
-    environment:
-      DATABASE_URL: postgres://user:pa55word@db:5432/veichle_management
-    depends_on:
-      - db
+    env_file:
+      - .env
     volumes:
       - .:/usr/src/app
-    entrypoint: ['./entrypoint.sh']
-    command: ['npm', 'run', 'start:dev']
+      - /usr/src/app/node_modules
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
 
   db:
     image: postgres:15-alpine
-    restart: always
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pa55word
-      POSTGRES_DB: veichle_management
     ports:
       - '5432:5432'
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres > /dev/null']
+      interval: 5s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
 
 volumes:
   postgres_data:
